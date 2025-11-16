@@ -21,6 +21,7 @@ mysql/data/*.pem
 *.crt
 *.key
 *.pid
+docker/mysql/data/client-key.pem
 docker/mysql/data/ca-key.pem
 
 # Homestead関連
