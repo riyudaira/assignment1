@@ -1,0 +1,62 @@
+.address-edit-container {
+    max-width: 600px;
+    margin: 80px auto;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+}
+
+.address-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+/* フォーム全体 */
+.address-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* ラベル */
+.address-form label {
+    text-align: left;
+    font-weight: bold;
+    margin-left: 4px;
+    font-size: 15px;
+}
+
+/* 入力欄 */
+.address-form input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* 更新ボタン */
+.address-update-button {
+    width: 100%;
+    background-color: #ff6b6b;
+    padding: 14px 0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.address-update-button:hover {
+    opacity: 0.9;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .address-edit-container {
+        padding: 0 20px;
+    }
+}
