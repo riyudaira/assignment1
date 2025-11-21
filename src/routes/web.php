@@ -85,3 +85,13 @@ Route::put('/purchase/address/{item}', [PurchaseController::class, 'updateAddres
 
 //ログインルート
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+//stripe決済画面遷移(成功)
+Route::get('/purchase/{item}/success', [PurchaseController::class, 'success'])
+    ->middleware('auth')
+    ->name('purchase.success');
+
+//stripe決済画面遷移(キャンセル)
+Route::get('/purchase/{item}/cancel', [PurchaseController::class, 'cancel'])
+    ->middleware('auth')
+    ->name('purchase.cancel');

@@ -18,8 +18,7 @@ class PurchaseFactory extends Factory
 
     public function definition(): array
     {
-        $paymentMethods = ['コンビニ払い', 'カード支払い'];
-
+        $paymentMethods = ['konbini', 'card'];
         return [
             'user_id' => User::inRandomOrder()->first()->id,
             'item_id' => Item::inRandomOrder()->first()->id,

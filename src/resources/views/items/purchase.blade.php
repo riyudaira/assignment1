@@ -23,8 +23,8 @@
                     <h3>支払い方法</h3>
                     <select name="payment_method" class="payment-select">
                         <option value="" selected disabled>選択してください</option>
-                        <option value="コンビニ払い">コンビニ払い</option>
-                        <option value="カード払い">カード払い</option>
+                        <option value="konbini">コンビニ払い</option>
+                        <option value="card">カード払い</option>
                     </select>
                     @error('payment_method')
                         <div class="error-message">{{ $message }}</div>
@@ -83,8 +83,9 @@
     <script>
         document.querySelector('.payment-select').addEventListener('change', function() {
             const method = this.value;
-            document.querySelector('.summary-payment-method').textContent = method;
-            document.querySelector('.hidden-payment-method').value = method;
+            const methodLabel = this.options[this.selectedIndex].text;
+            document.querySelector('.summary-payment-method').textContent = methodLabel;
+            document.querySelector('.hidden-payment-method').value = methodLabel;
         });
     </script>
 @endpush
