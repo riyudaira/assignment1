@@ -10,8 +10,8 @@ use App\Models\Like;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use Notifiable;
     use HasFactory, Notifiable;
-    // use \Illuminate\Auth\MustVerifyEmail;
 
     protected $fillable = [
         'name',
@@ -33,25 +33,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    // 商品（出品）
     public function items()
     {
         return $this->hasMany(Item::class);
     }
 
-    // 購入履歴
     public function purchases()
     {
         return $this->hasMany(Purchase::class);
     }
 
-    // いいね
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
 
-    // コメント
     public function comments()
     {
         return $this->hasMany(Comment::class);

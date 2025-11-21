@@ -17,7 +17,7 @@ class UserFactory extends Factory
         // 日本語対応の名前・住所生成
         $lastName = $this->faker->lastKanaName();
         $firstName = $this->faker->firstKanaName();
-        $fullName = mb_substr($lastName . ' ' . $firstName, 0, 20); // 20文字以内に制限
+        $fullName = mb_substr($lastName . ' ' . $firstName, 0, 20);
 
         // ハイフンありの郵便番号（例：123-4567）
         $postCode = $this->faker->regexify('[0-9]{3}-[0-9]{4}');
@@ -29,7 +29,7 @@ class UserFactory extends Factory
         return [
             'name' => $fullName,
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => Hash::make('password123'), // 8文字以上
+            'password' => Hash::make('password123'),
             'post_code' => $postCode,
             'address' => $this->faker->prefecture() . $this->faker->city() . $this->faker->streetAddress(),
             'build' => $this->faker->optional()->secondaryAddress(),

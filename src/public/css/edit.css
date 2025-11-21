@@ -42,7 +42,6 @@
     display: none;
 }
 
-/* 入力フォーム */
 .profile-edit-form {
     width: 70%;
     margin: 0 auto;
@@ -63,7 +62,6 @@
     border-radius: 4px;
 }
 
-/* 更新ボタン */
 .update-button {
     display: block;
     width: 100%;
@@ -80,4 +78,9 @@
 
 .update-button:hover {
     background-color: #e14444;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
 }

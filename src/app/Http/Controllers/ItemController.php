@@ -97,7 +97,7 @@ class ItemController extends Controller
         $item->description = $request->input('description');
         $item->price = $request->input('price');
         $item->condition = $request->input('condition');
-        $item->category_id = $request->input('category_id'); // 単一カテゴリ用
+        $item->category_id = $request->input('category_id');
 
         if ($request->hasFile('item_image')) {
             $path = $request->file('item_image')->store('item_images', 'public');

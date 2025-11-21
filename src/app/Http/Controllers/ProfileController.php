@@ -45,9 +45,9 @@ class ProfileController extends Controller
             $path = $request->file('profile_image')->store('profile_images', 'public');
             $user->profile_image = '/storage/' . $path;
         }
-
+        $user->profile_completed = true;
         $user->save();
 
-        return redirect()->route('user.profile')->with('message', 'プロフィールを更新しました');
+        return redirect()->route('items.index')->with('message', 'プロフィールを更新しました');
     }
 }

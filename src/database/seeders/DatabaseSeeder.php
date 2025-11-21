@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersTableSeeder::class,
-            CategoriesTableSeeder::class, // ← 先にカテゴリを作成
+            CategoriesTableSeeder::class,
             ItemsTableSeeder::class,
             PurchasesTableSeeder::class,
             LikesTableSeeder::class,

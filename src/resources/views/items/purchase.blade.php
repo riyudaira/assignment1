@@ -40,7 +40,10 @@
                 @endphp
 
                 <div class="address-section">
-                    <h3>配送先</h3>
+                    <div class="address-container">
+                        <h3>配送先</h3>
+                        <a href="{{ route('purchase.address.edit', ['item' => $item->id]) }}" class="change-link">変更する</a>
+                    </div>
 
                     <div class="address-info">
                         <p>〒 {{ $postCode }}</p>
@@ -48,7 +51,6 @@
                         <p>{{ $build }}</p>
                     </div>
 
-                    <a href="{{ route('purchase.address.edit', ['item' => $item->id]) }}" class="change-link">変更する</a>
                 </div>
 
                 <input type="hidden" name="delivery_address" value="{{ $deliveryAddress }}">
@@ -77,7 +79,7 @@
     </form>
 @endsection
 
-@section('js')
+@push('js')
     <script>
         document.querySelector('.payment-select').addEventListener('change', function() {
             const method = this.value;
@@ -85,4 +87,4 @@
             document.querySelector('.hidden-payment-method').value = method;
         });
     </script>
-@endsection
+@endpush

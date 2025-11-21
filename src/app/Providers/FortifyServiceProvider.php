@@ -42,7 +42,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return view('auth.login');
         });
-        //あとで消す！！！
         RateLimiter::for('login', function () {
             return Limit::none();
         });

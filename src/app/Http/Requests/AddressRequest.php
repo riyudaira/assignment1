@@ -45,7 +45,6 @@ class AddressRequest extends FormRequest
             'build' => '建物名',
         ];
     }
-    //半角へ自動修正
     protected function prepareForValidation()
     {
         $this->merge([

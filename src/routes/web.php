@@ -6,8 +6,23 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\LoginController;
-// use Illuminate\Support\Facades\Auth;
-// use App\Http\Controllers\Auth\AuthController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\VerificationController;
+
+//メール認証の遷移
+Auth::routes(['verify' => true]);
+
+//メール認証の設定
+Route::get('/email/verified-redirect', [HomeController::class, 'redirectAfterVerify'])
+    ->middleware('auth')
+    ->name('verified.redirect');
+Route::get('/email/verify/{id}/{hash}', VerificationController::class)
+    ->middleware(['auth', 'signed'])
+    ->name('verification.verify');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 //検索結果表示・商品一覧へ遷移
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
@@ -30,12 +45,12 @@ Route::get('/mypage', [ProfileController::class, 'profile'])
 
 // プロフィール編集画面へ遷移（edit.blade.php を表示）
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])
-    ->middleware('auth')
+    ->middleware(['auth'])
     ->name('user.profile.edit');
 
 // プロフィール更新処理
 Route::post('/mypage/profile', [ProfileController::class, 'update'])
-    ->middleware('auth')
+    ->middleware(['auth'])
     ->name('user.profile.update');
 
 //出品画面へ遷移(ミドルウェア)

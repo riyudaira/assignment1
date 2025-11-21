@@ -65,21 +65,23 @@
                         <li class="item-list">商品の状態 <span class="condition-label">{{ $item->condition }}</span></li>
                     </ul>
                 </div>
-
                 <div class="item-comments">
                     <h3>コメント ({{ $item->comments->count() }})</h3>
 
                     @foreach ($item->comments as $comment)
-                        <div class="comment">
-                            <strong>{{ $comment->user->name ?? '匿名' }}</strong>
-                            <p>{{ $comment->content }}</p>
+                        <div class="comment-item">
+                            <div class="comment-header">
+                                <img src="{{ $comment->user->profile_image ?? asset('images/user-placeholder.png') }}"
+                                    alt="{{ $comment->user->name ?? '匿名' }}のプロフィール画像" class="comment-user-image">
+                                <strong>{{ $comment->user->name ?? '匿名' }}</strong>
+                            </div>
+                            <p class="comment-content">{{ $comment->content }}</p>
                         </div>
                     @endforeach
-
                     @auth
                         <form method="POST" action="{{ route('comments.store', $item->id) }}">
                             @csrf
-                            <textarea class="detail-textbox" name="content" placeholder="こちらにコメントを入力" required></textarea>
+                            <textarea class="detail-textbox" name="content" placeholder="こちらにコメントを入力"></textarea>
                             @error('content')
                                 <div class="error-message">{{ $message }}</div>
                             @enderror
@@ -91,13 +93,10 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script>
         document.querySelector('.like-button').addEventListener('click', function() {
             const itemId = this.dataset.itemId;
@@ -119,4 +118,4 @@
                 });
         });
     </script>
-@endsection
+@endpush

@@ -55,7 +55,7 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script>
         document.querySelector('.image-input').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -68,4 +68,4 @@
             reader.readAsDataURL(file);
         });
     </script>
-@endsection
+@endpush

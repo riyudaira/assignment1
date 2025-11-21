@@ -14,16 +14,16 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id'); // 主キー
+            $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email')->unique(); // メールは重複不可
+            $table->string('email')->unique();
             $table->string('password');
-            $table->string('post_code')->nullable(); //本番ではrequired
-            $table->string('address')->nullable(); //本番ではrequired
-            $table->string('build')->nullable(); // 建物名は任意
-            $table->string('profile_image')->nullable(); // プロフィール画像（任意）
-            $table->timestamp('email_verified_at')->nullable(); // 認証日時
-            $table->timestamps(); // created_at, updated_at
+            $table->string('post_code')->nullable();
+            $table->string('address')->nullable();
+            $table->string('build')->nullable();
+            $table->string('profile_image')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamps();
         });
     }
 

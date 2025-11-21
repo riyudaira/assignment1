@@ -14,10 +14,10 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->bigIncrements('id'); // 主キー
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // コメントしたユーザー
-            $table->foreignId('item_id')->constrained()->onDelete('cascade'); // コメント対象の商品
-            $table->text('content'); // コメント本文
+            $table->bigIncrements('id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('item_id')->constrained()->onDelete('cascade');
+            $table->text('content');
             $table->timestamps();
         });
     }

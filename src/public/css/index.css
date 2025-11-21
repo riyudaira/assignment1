@@ -15,7 +15,6 @@
 
 .tab-bar a.active {
     color: #d33;
-    border-bottom: 2px solid #d33;
 }
 
 .empty-message {

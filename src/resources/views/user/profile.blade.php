@@ -6,7 +6,6 @@
 
 @section('content')
     <div class="profile-container">
-
         {{-- ユーザー情報 --}}
         <div class="profile-header">
             <div class="profile-image">
@@ -18,8 +17,8 @@
                 <a href="{{ route('user.profile.edit') }}" class="edit-button">プロフィールを編集</a>
             </div>
         </div>
-
     </div>
+
     {{-- タブ切り替え --}}
     <div class="tab-bar">
         <a href="{{ route('user.profile', ['tab' => 'listed']) }}"
@@ -28,9 +27,8 @@
             class="{{ request('tab') === 'purchased' ? 'active' : '' }}">購入した商品</a>
     </div>
 
-
     {{-- 商品一覧 --}}
-    <div class="item-grid">
+    <div class="item-flex">
         @forelse ($items as $item)
             <div class="item-card">
                 <a href="{{ route('items.detail', $item->id) }}" class="item-card-link">

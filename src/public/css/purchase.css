@@ -6,8 +6,6 @@
     gap: 40px;
 }
 
-/* ---------------- 左側 ---------------- */
-
 .purchase-left {
     flex: 1;
 }
@@ -16,7 +14,7 @@
     display: flex;
     gap: 20px;
     margin-bottom: 40px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #000;
     padding-bottom: 30px;
 }
 
@@ -37,13 +35,17 @@
     font-size: 20px;
 }
 
-/* 支払い方法 */
 .payment-section h3,
 .address-section h3 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
     margin-top: 30px;
+}
+.payment-section {
+    border-bottom: 1px solid #000;
+    padding-bottom: 30px;
+    margin-top: 40px;
 }
 
 .payment-select {
@@ -53,11 +55,15 @@
     border-radius: 4px;
 }
 
-/* 配送先 */
 .address-section {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #000;
     padding-bottom: 30px;
     margin-top: 40px;
+}
+.address-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
 }
 
 .address-info p {
@@ -74,8 +80,6 @@
     text-decoration: underline;
 }
 
-/* ---------------- 右側：購入確認 ---------------- */
-
 .purchase-right {
     width: 300px;
 }
@@ -89,7 +93,7 @@
 
 .purchase-summary-table th,
 .purchase-summary-table td {
-    border: 1px solid #444;
+    border-bottom: 1px solid #444;
     padding: 12px;
     font-size: 14px;
 }
@@ -110,21 +114,58 @@
 .purchase-button:hover {
     opacity: 0.9;
 }
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}
 
-/* ---------------- スマホ対応 ---------------- */
-@media screen and (max-width: 768px) {
+@media (max-width: 1024px) {
     .purchase-container {
         flex-direction: column;
+        max-width: 90%;
+        margin: 20px auto;
         padding: 0 16px;
-    }
-
-    .purchase-right {
-        width: 100%;
+        gap: 20px;
     }
 
     .purchase-item {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .purchase-item-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .purchase-item-name {
+        font-size: 20px;
+    }
+
+    .payment-section {
+        margin-bottom: 20px;
+    }
+
+    .address-section {
+        margin-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .payment-select {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .purchase-right {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .purchase-summary-table {
+        margin-bottom: 20px;
     }
 }

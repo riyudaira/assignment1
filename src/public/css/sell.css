@@ -21,7 +21,6 @@
     margin: 30px 0;
 }
 
-/* 画像アップロード */
 .item-image-wrapper {
     border: 2px dashed #ccc;
     padding: 30px 20px;
@@ -69,49 +68,25 @@
     display: none;
 }
 
-/* .item-image-wrapper {
-    border: 2px dashed #ccc;
-    padding: 40px;
-    text-align: center;
-    border-radius: 6px;
+.label-text {
+    font-weight: 700;
 }
 
-.item-image-preview {
-    width: 140px;
-    height: 140px;
-    object-fit: cover;
-    background: #ddd;
-    border-radius: 6px;
-}
-
-.image-select-btn {
-    display: inline-block;
-    margin-top: 16px;
-    border: 1px solid #ff5555;
-    padding: 6px 14px;
-    border-radius: 6px;
-    color: #ff5555;
-    cursor: pointer;
-}
-
-.image-input {
-    display: none;
-} */
-
-/* カテゴリー */
 .category-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-bottom: 18px;
 }
 
 .category-tag {
-    border: 1px solid #ff7a7a;
+    border: 2px solid #ff7a7a;
     color: #ff7a7a;
     padding: 4px 10px;
     border-radius: 20px;
     cursor: pointer;
     font-size: 13px;
+    font-weight: 500;
 }
 
 .category-tag input {
@@ -124,16 +99,15 @@
     color: white;
 }
 
-/* 商品状態 */
 .select-input {
     width: 100%;
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    margin-bottom: 18px;
 }
 
-/* テキスト項目 */
-.sell-form input,
+.sell-form-input,
 .textarea-input {
     width: 100%;
     padding: 10px;
@@ -146,14 +120,35 @@
     height: 120px;
 }
 
-/* 価格 */
 .price-input-wrapper {
     display: flex;
     align-items: center;
     gap: 6px;
+    position: relative;
+}
+.price-input {
+    width: 100%;
+    padding-left: 24px;
+    font-size: 16px;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0px;
 }
 
-/* ボタン */
+.price-input-wrapper::before {
+    content: "¥";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    color: #555;
+    font-size: 16px;
+    pointer-events: none;
+}
+
 .sell-button {
     display: block;
     margin: 40px auto 0;
@@ -174,5 +169,85 @@
 .error-message {
     color: red;
     font-size: 0.9em;
-    margin-top: 4px;
+    margin-bottom: 18px;
+}
+
+@media screen and (max-width: 1024px) {
+    .sell-container {
+        max-width: 90%;
+        margin: 30px auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .sell-container {
+        max-width: 100%;
+        margin: 20px 0;
+        padding: 0 15px;
+    }
+
+    .sell-title {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        margin: 20px 0 8px;
+        font-size: 15px;
+    }
+
+    .section-line {
+        margin: 25px 0;
+    }
+
+    .item-image-wrapper {
+        padding: 20px 15px;
+    }
+
+    .image-select-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .item-image-preview {
+        width: 150px;
+        height: 150px;
+    }
+
+    .category-tags {
+        gap: 8px;
+    }
+    .category-tag {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .sell-form-input,
+    .textarea-input,
+    .select-input {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .textarea-input {
+        height: 100px;
+    }
+
+    .price-input-wrapper {
+        margin-bottom: 18px;
+    }
+    .price-input {
+        padding-left: 28px;
+        height: 40px;
+        font-size: 16px;
+    }
+    .price-input-wrapper::before {
+        left: 10px;
+    }
+
+    .sell-button {
+        padding: 14px;
+        font-size: 16px;
+        margin-top: 30px;
+    }
 }

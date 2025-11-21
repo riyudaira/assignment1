@@ -14,14 +14,14 @@ class CreatePurchasesTable extends Migration
     public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->bigIncrements('id'); // 主キー
-            $table->foreignId('item_id')->constrained()->onDelete('cascade'); // 購入された商品
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // 購入者
-            $table->enum('payment_method', ['コンビニ払い', 'カード支払い',]); // 支払い方法（仕様に合わせて調整）
+            $table->bigIncrements('id');
+            $table->foreignId('item_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->enum('payment_method', ['コンビニ払い', 'カード支払い',]);
             $table->string('post_code');
             $table->string('address');
-            $table->string('build')->nullable(); // 建物名は任意
-            $table->timestamp('purchased_at'); // 購入日時
+            $table->string('build')->nullable();
+            $table->timestamp('purchased_at');
             $table->timestamps();
         });
     }

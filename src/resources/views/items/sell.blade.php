@@ -6,12 +6,9 @@
 
 @section('content')
     <div class="sell-container">
-
         <h1 class="sell-title">商品の出品</h1>
-
         <form method="POST" action="{{ route('item.store') }}" enctype="multipart/form-data" class="sell-form">
             @csrf
-
             {{-- 商品画像 --}}
             <p class="section-title">商品画像</p>
             <div class="item-image-wrapper">
@@ -28,7 +25,6 @@
             @error('item_image')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-
             <hr class="section-line">
 
             {{-- 商品の詳細 --}}
@@ -46,8 +42,6 @@
             @error('categories')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-
-
             <label class="label-text">商品の状態</label>
             <select name="condition" class="select-input">
                 <option disabled selected>選択してください</option>
@@ -59,21 +53,19 @@
             @error('condition')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-
-
             <hr class="section-line">
 
             {{-- 商品名と説明 --}}
             <p class="section-title">商品名と説明</p>
 
             <label class="label-text">商品名</label>
-            <input type="text" name="name" value="{{ old('name') }}">
+            <input type="text" name="name" value="{{ old('name') }}" class="sell-form-input">
             @error('name')
                 <div class="error-message">{{ $message }}</div>
             @enderror
 
             <label class="label-text">ブランド名</label>
-            <input type="text" name="brand" value="{{ old('brand') }}">
+            <input type="text" name="brand" value="{{ old('brand') }}" class="sell-form-input">
             @error('brand')
                 <div class="error-message">{{ $message }}</div>
             @enderror
@@ -86,8 +78,7 @@
 
             <label class="label-text">販売価格</label>
             <div class="price-input-wrapper">
-                <span>¥</span>
-                <input type="number" name="price" value="{{ old('price') }}">
+                <input type="number" name="price" value="{{ old('price') }}" class="price-input">
             </div>
             @error('price')
                 <div class="error-message">{{ $message }}</div>
@@ -97,7 +88,7 @@
     </div>
 @endsection
 
-@section('js')
+@push('js')
     <script>
         document.querySelector('.image-input').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -118,4 +109,4 @@
             reader.readAsDataURL(file);
         });
     </script>
-@endsection
+@endpush

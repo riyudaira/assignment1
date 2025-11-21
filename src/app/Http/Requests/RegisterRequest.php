@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'ユーザー名を入力してください。',
+            'name.required' => 'お名前を入力してください。',
             'name.max' => 'ユーザー名は20文字以内で入力してください。',
 
             'email.required' => 'メールアドレスを入力してください。',
@@ -42,7 +42,7 @@ class RegisterRequest extends FormRequest
 
             'password.required' => 'パスワードを入力してください。',
             'password.min' => 'パスワードは8文字以上で入力してください。',
-            'password.confirmed' => '確認用パスワードがパスワードと一致しません。',
+            'password.confirmed' => 'パスワードと一致しません。',
         ];
     }
     public function attributes()
