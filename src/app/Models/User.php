@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'build',
         'profile_image',
         'email_verified_at',
+        'profile_completed',
     ];
 
     protected $hidden = [
@@ -31,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'profile_completed' => 'boolean',
     ];
 
     public function items()

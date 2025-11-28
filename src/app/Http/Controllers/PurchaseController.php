@@ -23,17 +23,22 @@ class PurchaseController extends Controller
     //購入の処理
     public function store(PurchaseRequest $request, Item $item)
     {
-        $paymentMethod = $request->input('payment_method');
-        $address = session('purchase_address_' . $item->id);
-        // Stripe初期化
+        $validated = $request->validated();
+        $paymentMethod = $validated['payment_method'];
+        $address = session('purchase_address_' . $item->id, [
+            'post_code' => Auth::user()->post_code,
+            'address'   => Auth::user()->address,
+            'build'     => Auth::user()->build,
+        ]);
+        if ($item->user_id === Auth::id()) {
+            return back()->withErrors(['error' => '自分の商品は購入できません']);
+        }
         Stripe::setApiKey(config('services.stripe.secret'));
-        // 支払い方法をStripe用に変換
         $method = match ($paymentMethod) {
             'カード払い' => 'card',
             'コンビニ払い' => 'konbini',
             default => abort(400, '不正な支払い方法です'),
         };
-        // Checkoutセッション作成
         $session = StripeSession::create([
             'payment_method_types' => [$method],
             'line_items' => [[
@@ -58,9 +63,9 @@ class PurchaseController extends Controller
                 'build' => $address['build'] ?? Auth::user()->build,
             ],
         ]);
-        // Stripeの決済画面へリダイレクト
         return redirect($session->url);
     }
+    //購入成功
     public function success(Item $item)
     {
         $paymentMethod = session('last_payment_method', 'card');
@@ -76,6 +81,7 @@ class PurchaseController extends Controller
         ]);
         return redirect()->route('user.profile')->with('message', '購入が完了しました');
     }
+    //購入失敗
     public function cancel(Item $item)
     {
         return redirect()->route('purchase.show', $item->id)
@@ -104,21 +110,3 @@ class PurchaseController extends Controller
             ->with('message', '配送先を変更しました');
     }
 }
-
-        // バリデーション済みの値を取得
-        // $payment = $request->input('payment_method');
-        // $delivery = $request->input('delivery_address');
-
-        // $address = session('purchase_address_' . $item->id);
-
-        // Purchase::create([
-        //     'user_id'      => Auth::id(),
-        //     'item_id'      => $item->id,
-        //     'payment_method' => $request->input('payment_method'),
-        //     'post_code'    => $address['post_code'] ?? Auth::user()->post_code,
-        //     'address'      => $address['address'] ?? Auth::user()->address,
-        //     'build'        => $address['build'] ?? Auth::user()->build,
-        //     'purchased_at'   => Carbon::now(),
-        // ]);
-
-        // return redirect()->route('items.index')->with('message', '購入が完了しました');

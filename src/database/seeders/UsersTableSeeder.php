@@ -15,5 +15,10 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::factory()->count(10)->create();
+        User::factory()->create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => bcrypt('abab1234'),
+        ]);
     }
 }

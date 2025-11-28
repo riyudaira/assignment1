@@ -16,6 +16,7 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
+
         $items = [
             [
                 'name' => '腕時計',

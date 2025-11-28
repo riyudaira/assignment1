@@ -71,8 +71,11 @@
                     @foreach ($item->comments as $comment)
                         <div class="comment-item">
                             <div class="comment-header">
-                                <img src="{{ $comment->user->profile_image ?? asset('images/user-placeholder.png') }}"
+                                <img src="{{ $comment->user->profile_image
+                                    ? asset('storage/' . $comment->user->profile_image) // ✅ 修正: 余分な 'images/' を削除
+                                    : asset('storage/images/logo/noImage.svg') }}"
                                     alt="{{ $comment->user->name ?? '匿名' }}のプロフィール画像" class="comment-user-image">
+
                                 <strong>{{ $comment->user->name ?? '匿名' }}</strong>
                             </div>
                             <p class="comment-content">{{ $comment->content }}</p>

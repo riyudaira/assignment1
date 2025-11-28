@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
-// use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;

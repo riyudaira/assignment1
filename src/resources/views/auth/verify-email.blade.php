@@ -6,24 +6,18 @@
 
 @section('content')
     <div class="verify-wrapper">
-
         <p class="verify-text">
             登録していただいたメールアドレスに認証メールを送付しました。<br>
             メール認証を完了してください。
         </p>
-
         @if (session('message'))
             <div class="alert-success">{{ session('message') }}</div>
         @endif
-
         <div class="verify-buttons">
-
             {{-- 認証リンク --}}
-            <a href="mailto:" class="btn-main">
+            <a href="mailto:{{ Auth::check() ? Auth::user()->email : '' }}" class="btn-main">
                 認証はこちらから
             </a>
-
-
             {{-- 再送信 --}}
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
@@ -32,6 +26,5 @@
                 </button>
             </form>
         </div>
-
     </div>
 @endsection

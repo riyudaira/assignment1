@@ -9,8 +9,10 @@
         {{-- ユーザー情報 --}}
         <div class="profile-header">
             <div class="profile-image">
-                <img src="{{ Auth::user()->profile_image ?? asset('images/user-placeholder.png') }}" alt="プロフィール画像"
-                    class="profile-image-preview">
+                <img src="{{ Auth::user()->profile_image
+                    ? asset('storage/' . Auth::user()->profile_image)
+                    : asset('storage/images/logo/noImage.svg') }}"
+                    alt="プロフィール画像" class="profile-image-preview">
                 <h2 class="username">{{ Auth::user()->name }}</h2>
             </div>
             <div class="profile-info">

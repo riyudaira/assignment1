@@ -14,7 +14,7 @@ class AddProfileCompletedToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('profile_completed')->default(false);
+            $table->boolean('profile_completed')->default(false)->after('email_verified_at');
         });
     }
 
@@ -26,7 +26,7 @@ class AddProfileCompletedToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('profile_completed');
         });
     }
 }

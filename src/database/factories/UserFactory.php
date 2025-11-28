@@ -14,17 +14,11 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        // 日本語対応の名前・住所生成
         $lastName = $this->faker->lastKanaName();
         $firstName = $this->faker->firstKanaName();
         $fullName = mb_substr($lastName . ' ' . $firstName, 0, 20);
-
-        // ハイフンありの郵便番号（例：123-4567）
         $postCode = $this->faker->regexify('[0-9]{3}-[0-9]{4}');
-
-        // 拡張子が.jpegまたは.pngの画像パス
         $imageExtension = $this->faker->randomElement(['jpeg', 'png']);
-        $profileImage = 'profile_' . $this->faker->unique()->numerify('###') . '.' . $imageExtension;
 
         return [
             'name' => $fullName,
@@ -34,7 +28,7 @@ class UserFactory extends Factory
             'address' => $this->faker->prefecture() . $this->faker->city() . $this->faker->streetAddress(),
             'build' => $this->faker->optional()->secondaryAddress(),
             'email_verified_at' => now(),
-            'profile_image' => $profileImage,
+            'profile_image' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ];

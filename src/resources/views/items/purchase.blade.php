@@ -11,7 +11,7 @@
             <div class="purchase-left">
                 {{-- 商品情報 --}}
                 <div class="purchase-item">
-                    <img src="{{ $item->image_url }}" class="purchase-item-image" alt="商品画像">
+                    <img src="{{ asset($item->image_path) }}" class="purchase-item-image" alt="商品画像">
                     <div class="purchase-item-info">
                         <h2 class="purchase-item-name">{{ $item->name }}</h2>
                         <p class="purchase-item-price">¥ {{ number_format($item->price) }}</p>

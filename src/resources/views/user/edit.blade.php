@@ -14,8 +14,10 @@
 
             {{-- プロフィール画像 --}}
             <div class="profile-image-wrapper">
-                <img src="{{ Auth::user()->profile_image ?? asset('images/user-placeholder.png') }}"
-                    class="profile-image-preview" alt="プロフィール画像">
+                <img src="{{ Auth::user()->profile_image
+                    ? asset('storage/' . Auth::user()->profile_image)
+                    : asset('storage/images/logo/noImage.svg') }}"
+                    alt="プロフィール画像" class="profile-image-preview">
                 <label class="image-select-btn">
                     画像を選択する
                     <input type="file" name="profile_image" accept="image/*" class="image-input">

@@ -20,7 +20,7 @@ class PurchaseFactory extends Factory
     {
         $paymentMethods = ['konbini', 'card'];
         return [
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => User::factory(),
             'item_id' => Item::inRandomOrder()->first()->id,
             'payment_method' => $this->faker->randomElement($paymentMethods),
             'post_code' => $this->faker->regexify('[0-9]{3}-[0-9]{4}'),
