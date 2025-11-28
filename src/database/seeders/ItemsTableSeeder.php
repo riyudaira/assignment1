@@ -23,7 +23,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 15000,
                 'brand' => 'Rolax',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
+                'image_path' => 'images/img/watch.jpg',
                 'condition' => '良好',
             ],
             [
@@ -31,7 +31,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 5000,
                 'brand' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
+                'image_path' => 'images/img/disk.jpg',
                 'condition' => '目立った傷や汚れなし',
             ],
             [
@@ -39,7 +39,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 300,
                 'brand' => null,
                 'description' => '新鮮な玉ねぎ3束のセット',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
+                'image_path' => 'images/img/onion.jpg',
                 'condition' => 'やや傷や汚れあり',
             ],
             [
@@ -47,7 +47,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 4000,
                 'brand' => null,
                 'description' => 'クラシックなデザインの革靴',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
+                'image_path' => 'images/img/shoose.jpg',
                 'condition' => '状態が悪い',
             ],
             [
@@ -55,7 +55,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 45000,
                 'brand' => null,
                 'description' => '高性能なノートパソコン',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
+                'image_path' => 'images/img/laptop.jpg',
                 'condition' => '良好',
             ],
             [
@@ -63,7 +63,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 8000,
                 'brand' => null,
                 'description' => '高音質のレコーディング用マイク',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
+                'image_path' => 'images/img/mike.jpg',
                 'condition' => '目立った傷や汚れなし',
             ],
             [
@@ -71,7 +71,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 3500,
                 'brand' => null,
                 'description' => 'おしゃれなショルダーバッグ',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
+                'image_path' => 'images/img/bag.jpg',
                 'condition' => 'やや傷や汚れあり',
             ],
             [
@@ -79,7 +79,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 500,
                 'brand' => null,
                 'description' => '使いやすいタンブラー',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
+                'image_path' => 'images/img/Tumbler.jpg',
                 'condition' => '状態が悪い',
             ],
             [
@@ -87,7 +87,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 4000,
                 'brand' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
+                'image_path' => 'images/img/coffee.jpg',
                 'condition' => '良好',
             ],
             [
@@ -95,7 +95,7 @@ class ItemsTableSeeder extends Seeder
                 'price' => 2500,
                 'brand' => null,
                 'description' => '便利なメイクアップセット',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
+                'image_path' => 'images/img/makeup.jpg',
                 'condition' => '目立った傷や汚れなし',
             ],
         ];

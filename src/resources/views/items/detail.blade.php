@@ -8,7 +8,7 @@
     <div class="item-detail-container">
         <div class="item-main">
             <div class="item-main-img">
-                <img src="{{ $item->image_path }}" alt="{{ $item->name }}" class="item-image">
+                <img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" class="item-image">
             </div>
             <div class="item-info">
                 <h2 class="item-name">{{ $item->name }}</h2>
@@ -24,7 +24,7 @@
 
 
                     <div class="icon-comment">
-                        <img src="{{ asset('storage/images/logo/comment.svg') }}" alt="likes">
+                        <img src="{{ asset('images/img/logo/comment.svg') }}" alt="likes">
                         <p class="likes-count">{{ $item->comments->count() }}</p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                             <div class="comment-header">
                                 <img src="{{ $comment->user->profile_image
                                     ? asset('storage/' . $comment->user->profile_image) // ✅ 修正: 余分な 'images/' を削除
-                                    : asset('storage/images/logo/noImage.svg') }}"
+                                    : asset('images/img/logo/noImage.svg') }}"
                                     alt="{{ $comment->user->name ?? '匿名' }}のプロフィール画像" class="comment-user-image">
 
                                 <strong>{{ $comment->user->name ?? '匿名' }}</strong>

@@ -67,9 +67,8 @@ body {
     display: inline-block;
     cursor: pointer;
     background-color: #999;
-    -webkit-mask: url("/storage/images/logo/Like.svg") no-repeat center /
-        contain;
-    mask: url("/storage/images/logo/Like.svg") no-repeat center / contain;
+    -webkit-mask: url("/images/img/logo/Like.svg") no-repeat center / contain;
+    mask: url("/images/img/logo/Like.svg") no-repeat center / contain;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 .like-button.disabled {

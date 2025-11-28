@@ -11,7 +11,7 @@
             <div class="profile-image">
                 <img src="{{ Auth::user()->profile_image
                     ? asset('storage/' . Auth::user()->profile_image)
-                    : asset('storage/images/logo/noImage.svg') }}"
+                    : asset('images/img/logo/noImage.svg') }}"
                     alt="プロフィール画像" class="profile-image-preview">
                 <h2 class="username">{{ Auth::user()->name }}</h2>
             </div>
