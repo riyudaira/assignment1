@@ -74,4 +74,21 @@ class RegisterController extends Controller
     {
         return route('verification.notice');
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'お名前を入力してください。',
+            'name.max' => 'ユーザー名は20文字以内で入力してください。',
+
+            'email.required' => 'メールアドレスを入力してください。',
+            'email.email' => 'メールアドレスはメール形式で入力してください。',
+            'email.max' => 'メールアドレスは255文字以内で入力してください。',
+            'email.unique' => 'このメールアドレスは既に登録されています。',
+
+            'password.required' => 'パスワードを入力してください。',
+            'password.min' => 'パスワードは8文字以上で入力してください。',
+            'password.confirmed' => 'パスワードと一致しません。',
+        ];
+    }
 }

@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -21,7 +23,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return redirect('/mypage/profile');
+            }
+        });
     }
 
     /**
@@ -45,23 +52,25 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::none();
         });
 
-        Fortify::authenticateUsing(function (Request $request) {
-            $loginRequest = \App\Http\Requests\LoginRequest::createFrom($request);
-            $loginRequest->setContainer(app())->validateResolved();
 
-            $validated = $loginRequest->validate(
-                $loginRequest->rules(),
-                $loginRequest->messages(),
-                $loginRequest->attributes()
-            );
-            $user = User::where('email', $loginRequest->email)->first();
 
-            if ($user && Hash::check($loginRequest->password, $user->password)) {
-                return $user;
-            }
+        // Fortify::authenticateUsing(function (Request $request) {
+        //     $loginRequest = \App\Http\Requests\LoginRequest::createFrom($request);
+        //     $loginRequest->setContainer(app())->validateResolved();
 
-            session()->flash('error', 'ログイン情報が登録されていません');
-            return null;
-        });
+        //     $validated = $loginRequest->validate(
+        //         $loginRequest->rules(),
+        //         $loginRequest->messages(),
+        //         $loginRequest->attributes()
+        //     );
+        //     $user = User::where('email', $loginRequest->email)->first();
+
+        //     if ($user && Hash::check($loginRequest->password, $user->password)) {
+        //         return $user;
+        //     }
+
+        //     session()->flash('error', 'ログイン情報が登録されていません');
+        //     return null;
+        // });
     }
 }
