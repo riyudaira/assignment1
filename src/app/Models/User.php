@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Like;
 
+/**
+ * @method bool hasVerifiedEmail()
+ */
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;

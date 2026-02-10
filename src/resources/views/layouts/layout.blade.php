@@ -84,3 +84,17 @@
 </body>
 
 </html>
+
+
+{{-- 勤怠管理アプリで使った管理者↔️ユーザーショートカット --}}
+{{-- 消す！！！！ --}}
+{{-- @if (Auth::user()->role === 10)
+                            <li class="header__nav-item">
+                                <a href="{{ route('admin.attendance.list') }}"
+                                    style="color: #007bff; font-weight: bold;">管理者ページへ</a>
+                            </li>
+                        @endif --}}
+{{-- 消す！！！！ --}}
+{{-- <li class="header__nav-item">
+                            <a href="{{ route('attendance') }}" style="color: #4a90e2; font-weight: bold;">一般画面へ</a>
+                        </li> --}}

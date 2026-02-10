@@ -4,20 +4,23 @@ namespace App\Actions\Fortify;
 
 
 use Illuminate\Support\Facades\Hash;
-use Laravel\Fortify\Contracts\CreatesNewUsers;
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Auth\Events\Registered;
 
 class CreateNewUser implements CreatesNewUsers
 {
-    use PasswordValidationRules;
+    // use PasswordValidationRules;
+    /**
+     * Validate and create a newly registered user.
+     *
+     * @param  array<string, string>  $input
+     */
 
     public function create(array $input): User
     {
-        //新規登録にRegisterRequestは用いられないため、こちらでバリデーションを実装する必要あり
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -50,27 +53,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
-
-
-        // ★ FortifyのinputをRequestに変換
-        // $baseRequest = Request::create('/', 'POST', $input);
-
-        // // ★ FormRequestとして生成
-        // $registerRequest = RegisterRequest::createFrom($baseRequest);
-        // $registerRequest->setContainer(app());
-        // $registerRequest->setRedirector(app('redirect'));
-
-        // // ★ ここで FormRequest の validate が正しく動く
-        // $validated = $registerRequest->validate(
-        //     $registerRequest->rules(),
-        //     $registerRequest->messages(),
-        //     $registerRequest->attributes()
-        // );
-
-        // return User::create([
-        //     'name' => $validated['name'],
-        //     'email' => $validated['email'],
-        //     'password' => Hash::make($validated['password']),
-        // ]);
+        // event(new Registered($user));
+        // return $user;
     }
 }
