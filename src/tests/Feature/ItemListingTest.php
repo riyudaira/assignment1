@@ -23,12 +23,12 @@ class ItemListingTest extends TestCase
     public function test_item_listing_saves_information_correctly()
     {
         Storage::fake('public');
-        $users = User::factory()->count(2)->create();
-        $user = $users->first();
-        $this->actingAs($user);
-        $this->seed(CategoriesTableSeeder::class);
-        $category = Category::where('name', 'ファッション')->first();
 
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $category = Category::create(['name' => 'ファッション']);
+        $file = UploadedFile::fake()->create('test.png', 100, 'image/png');
         $response = $this->post(route('item.store'), [
             'name' => 'テスト商品',
             'brand' => 'テストブランド',
@@ -36,11 +36,9 @@ class ItemListingTest extends TestCase
             'price' => 2000,
             'condition' => '良好',
             'categories' => [$category->id],
-            'item_image' => UploadedFile::fake()->create('test.png', 100, 'image/png'),
+            'item_image' => $file,
         ]);
-
         $response->assertRedirect(route('user.profile'));
-
         $this->assertDatabaseHas('items', [
             'name' => 'テスト商品',
             'brand' => 'テストブランド',
@@ -49,8 +47,8 @@ class ItemListingTest extends TestCase
             'condition' => '良好',
             'user_id' => $user->id,
         ]);
-
         $item = Item::where('name', 'テスト商品')->first();
-        $this->assertTrue(Storage::disk('public')->exists(str_replace('/storage/', '', $item->image_path)));
+        $path = str_replace('storage/', '', $item->image_path);
+        $this->assertTrue(Storage::disk('public')->exists($path));
     }
 }

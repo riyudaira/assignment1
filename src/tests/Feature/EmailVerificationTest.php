@@ -45,16 +45,14 @@ class EmailVerificationTest extends TestCase
     }
     public function test_user_can_verify_email_and_redirect_to_profile()
     {
-        $user = User::factory()->unverified()->create([
-            'profile_completed' => false,
-        ]);
-        $verificationUrl = \Illuminate\Support\Facades\URL::temporarySignedRoute(
+        $user = User::factory()->unverified()->create([]);
+        $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
             ['id' => $user->id, 'hash' => sha1($user->email)]
         );
         $response = $this->actingAs($user)->get($verificationUrl);
-        $response->assertRedirect(route('verified.redirect'));
+        $response->assertRedirect(route('user.profile.edit'));
         $this->assertNotNull($user->fresh()->email_verified_at);
     }
 }

@@ -11,18 +11,15 @@
                 <img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" class="item-image">
             </div>
             <div class="item-info">
-                <h2 class="item-name">{{ $item->name }}</h2>
+                <h1 class="item-name">{{ $item->name }}</h1>
                 <p class="item-brand">{{ $item->brand ?? 'なし' }}</p>
                 <p class="item-price">¥{{ number_format($item->price) }}（税込）</p>
                 <div class="item-icon-container">
-
                     <div class="icon-like">
                         <span class="like-button {{ $item->likes->contains('user_id', Auth::id()) ? 'liked' : '' }}"
                             data-item-id="{{ $item->id }}"></span>
                         <p class="likes-count">{{ $item->likes->count() }}</p>
                     </div>
-
-
                     <div class="icon-comment">
                         <img src="{{ asset('images/img/logo/comment.svg') }}" alt="likes">
                         <p class="likes-count">{{ $item->comments->count() }}</p>
@@ -36,7 +33,9 @@
                     @endauth
                 </div>
                 @auth
-                    @if ($item->isSold())
+                    @if ($item->user_id === Auth::id())
+                        <div class="purchase-button seller-disabled">出品した商品です</div>
+                    @elseif ($item->isSold())
                         <div class="purchase-button sold-disabled">購入済みの商品です</div>
                     @else
                         <a href="{{ route('purchase.show', ['item' => $item->id]) }}" class="purchase-button">購入手続きへ</a>
@@ -44,13 +43,10 @@
                 @else
                     <a href="{{ route('login') }}" class="purchase-button">ログインして購入手続きへ</a>
                 @endauth
-
-
                 <div class="item-description">
                     <h3>商品説明</h3>
                     <p>{{ $item->description }}</p>
                 </div>
-
                 <div class="item-meta">
                     <h3>商品の情報</h3>
                     <ul class="list-container">
@@ -60,22 +56,19 @@
                             @empty
                                 <span class="category-label">未分類</span>
                             @endforelse
-
                         </li>
                         <li class="item-list">商品の状態 <span class="condition-label">{{ $item->condition }}</span></li>
                     </ul>
                 </div>
                 <div class="item-comments">
                     <h3>コメント ({{ $item->comments->count() }})</h3>
-
                     @foreach ($item->comments as $comment)
                         <div class="comment-item">
                             <div class="comment-header">
                                 <img src="{{ $comment->user->profile_image
-                                    ? asset('storage/' . $comment->user->profile_image) // ✅ 修正: 余分な 'images/' を削除
+                                    ? asset('storage/' . $comment->user->profile_image)
                                     : asset('images/img/logo/noImage.svg') }}"
                                     alt="{{ $comment->user->name ?? '匿名' }}のプロフィール画像" class="comment-user-image">
-
                                 <strong>{{ $comment->user->name ?? '匿名' }}</strong>
                             </div>
                             <p class="comment-content">{{ $comment->content }}</p>
@@ -104,7 +97,6 @@
         document.querySelector('.like-button').addEventListener('click', function() {
             const itemId = this.dataset.itemId;
             const button = this;
-
             fetch(`/item/${itemId}/like`, {
                     method: 'POST',
                     headers: {
@@ -116,7 +108,6 @@
                 .then(response => response.json())
                 .then(data => {
                     document.querySelector('.likes-count').textContent = data.likes_count;
-
                     button.classList.toggle('liked');
                 });
         });

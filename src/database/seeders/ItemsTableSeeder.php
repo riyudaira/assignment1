@@ -16,9 +16,12 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        $user1 = User::where('email', 'test@example.com')->first();
+        $user2 = User::where('email', 'test2@example.com')->first();
+        $user3 = User::where('email', 'test3@example.com')->first();
         $items = [
             [
+                'user_id' => $user1->id,
                 'name' => '腕時計',
                 'price' => 15000,
                 'brand' => 'Rolax',
@@ -27,6 +30,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '良好',
             ],
             [
+                'user_id' => $user1->id,
                 'name' => 'HDD',
                 'price' => 5000,
                 'brand' => '西芝',
@@ -35,6 +39,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
             ],
             [
+                'user_id' => $user1->id,
                 'name' => '玉ねぎ3束',
                 'price' => 300,
                 'brand' => null,
@@ -43,6 +48,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 'やや傷や汚れあり',
             ],
             [
+                'user_id' => $user1->id,
                 'name' => '革靴',
                 'price' => 4000,
                 'brand' => null,
@@ -51,6 +57,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '状態が悪い',
             ],
             [
+                'user_id' => $user1->id,
                 'name' => 'ノートPC',
                 'price' => 45000,
                 'brand' => null,
@@ -59,6 +66,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '良好',
             ],
             [
+                'user_id' => $user2->id,
                 'name' => 'マイク',
                 'price' => 8000,
                 'brand' => null,
@@ -67,6 +75,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
             ],
             [
+                'user_id' => $user2->id,
                 'name' => 'ショルダーバッグ',
                 'price' => 3500,
                 'brand' => null,
@@ -75,6 +84,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 'やや傷や汚れあり',
             ],
             [
+                'user_id' => $user2->id,
                 'name' => 'タンブラー',
                 'price' => 500,
                 'brand' => null,
@@ -83,6 +93,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '状態が悪い',
             ],
             [
+                'user_id' => $user2->id,
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'brand' => 'Starbacks',
@@ -91,6 +102,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '良好',
             ],
             [
+                'user_id' => $user2->id,
                 'name' => 'メイクセット',
                 'price' => 2500,
                 'brand' => null,
@@ -99,12 +111,13 @@ class ItemsTableSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
             ],
         ];
-
         foreach ($items as $itemData) {
-            $item = Item::create(array_merge($itemData, [
-                'user_id' => User::inRandomOrder()->first()->id,
-            ]));
-
+            if ($itemData['name'] === '腕時計') {
+                $itemData['user_id'] = $user1->id;
+                $itemData['buyer_id'] = $user2->id;
+                $itemData['status'] = 'shipping';
+            }
+            $item = Item::create($itemData);
             $categoryIds = Category::inRandomOrder()->take(rand(0, 3))->pluck('id');
             $item->categories()->attach($categoryIds);
         }

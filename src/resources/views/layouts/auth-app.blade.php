@@ -12,7 +12,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth-app.css') }}">
-
     @yield('css')
 </head>
 

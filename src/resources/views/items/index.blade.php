@@ -8,14 +8,12 @@
     @php
         $keyword = request('keyword');
     @endphp
-
     <div class="tab-bar">
         <a href="{{ route('items.index', ['keyword' => $keyword]) }}"
             class="{{ request('tab') !== 'mylist' ? 'active' : '' }}">おすすめ</a>
         <a href="{{ route('items.index', ['tab' => 'mylist', 'keyword' => $keyword]) }}"
             class="{{ request('tab') === 'mylist' ? 'active' : '' }}">マイリスト</a>
     </div>
-
     <div class="item-grid {{ request('tab') === 'mylist' ? 'mylist-grid' : '' }}">
         @forelse ($items as $item)
             <a href="{{ route('items.detail', $item->id) }}" class="item-card-link">

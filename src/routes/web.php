@@ -5,8 +5,10 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+//メール認証
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -84,3 +86,29 @@ Route::get('/purchase/address/{item}', [PurchaseController::class, 'edit'])
 Route::put('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])
     ->middleware('auth')
     ->name('purchase.address.update');
+
+// チャット画面表示
+Route::get('/items/chat/{item}', [ChatController::class, 'show'])
+    ->middleware('auth')
+    ->name('chat.show');
+
+// メッセージ送信処理
+Route::post('/items/chat/{item}', [ChatController::class, 'store'])
+    ->middleware('auth')
+    ->name('chat.store');
+
+// メッセージ編集
+Route::patch('/chat/message/{chat}', [ChatController::class, 'update'])->name('chat.update');
+
+// メッセージ削除
+Route::delete('/chat/message/{chat}', [ChatController::class, 'destroy'])->name('chat.destroy');
+
+// 取引完了（購入者が「完了」ボタンを押した時の処理）
+Route::post('/items/chat/{item}/complete', [ChatController::class, 'complete'])
+    ->middleware('auth')
+    ->name('purchase.complete');
+
+// 評価送信（購入者・出品者共通）
+Route::post('/items/{item}/review', [ChatController::class, 'storeReview'])
+    ->middleware('auth')
+    ->name('items.review.store');

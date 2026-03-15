@@ -3,53 +3,41 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Item;
 use App\Models\Like;
-use Database\Seeders\ItemsTableSeeder;
-use Database\Seeders\CategoriesTableSeeder;
 
 class SearchTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
 
+    /** 商品名で検索ができる */
     public function test_search_items_by_name()
     {
-        \App\Models\User::factory()->create();
-
-        $this->seed(\Database\Seeders\CategoriesTableSeeder::class);
-        $this->seed(\Database\Seeders\ItemsTableSeeder::class);
+        Item::factory()->create(['name' => '限定版の腕時計']);
+        Item::factory()->create(['name' => '高性能なHDD']);
         $response = $this->get('/?keyword=腕');
-        $response->assertSeeText('腕時計');
-        $response->assertDontSeeText('HDD');
+        $response->assertStatus(200);
+        $response->assertSeeText('限定版の腕時計');
+        $response->assertDontSeeText('高性能なHDD');
     }
 
+    /** マイリスト内でも検索キーワードが保持され、絞り込みが機能する */
     public function test_search_keyword_is_retained_in_mylist()
     {
-        $users = User::factory()->count(2)->create();
-        $user = $users->first();
+        /** @var User $user */
+        $user = User::factory()->create();
         $this->actingAs($user);
-
-        $this->seed(CategoriesTableSeeder::class);
-        $this->seed(ItemsTableSeeder::class);
-
-        $item = \App\Models\Item::where('name', 'HDD')->first();
+        $item1 = Item::factory()->create(['name' => 'お気に入りのHDD']);
+        $item2 = Item::factory()->create(['name' => '対象外の腕時計']);
         Like::create([
             'user_id' => $user->id,
-            'item_id' => $item->id,
+            'item_id' => $item1->id,
         ]);
-
-        $response = $this->get('/?keyword=HDD');
-        $response->assertSeeText('HDD');
-
         $response = $this->get('/?tab=mylist&keyword=HDD');
-        $response->assertSeeText('HDD');
-        $response->assertDontSeeText('腕時計');
+        $response->assertStatus(200);
+        $response->assertSeeText('お気に入りのHDD');
+        $response->assertDontSeeText('対象外の腕時計');
     }
 }

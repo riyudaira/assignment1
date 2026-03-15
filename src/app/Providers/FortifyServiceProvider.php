@@ -20,12 +20,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
-        //     public function toResponse($request)
-        //     {
-        //         return redirect('/mypage/profile');
-        //     }
-        // });
+        // 会員登録成功後のリダイレクト先を /email/verify に固定する
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return redirect('/email/verify');
+            }
+        });
     }
 
     /**

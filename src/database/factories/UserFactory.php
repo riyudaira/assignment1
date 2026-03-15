@@ -29,6 +29,8 @@ class UserFactory extends Factory
             'build' => $this->faker->optional()->secondaryAddress(),
             'email_verified_at' => now(),
             'profile_image' => null,
+            'evaluation' => $this->faker->randomFloat(1, 1, 5),
+            'evaluation_count' => $this->faker->numberBetween(0, 100),
             'created_at' => now(),
             'updated_at' => now(),
         ];

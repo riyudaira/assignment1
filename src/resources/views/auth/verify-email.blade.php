@@ -14,11 +14,9 @@
             <div class="alert-success">{{ session('message') }}</div>
         @endif
         <div class="verify-buttons">
-            {{-- 認証リンク --}}
             <a href="mailto:{{ Auth::check() ? Auth::user()->email : '' }}" class="btn-main">
                 認証はこちらから
             </a>
-            {{-- 再送信 --}}
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
                 <button type="submit" class="btn-link">

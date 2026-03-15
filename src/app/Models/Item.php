@@ -12,6 +12,8 @@ class Item extends Model
 
     protected $fillable = [
         'user_id',
+        'buyer_id',
+        'status',
         'name',
         'price',
         'brand',
@@ -24,7 +26,10 @@ class Item extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'buyer_id');
+    }
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -62,5 +67,13 @@ class Item extends Model
         return Str::startsWith($this->image_path, 'http')
             ? $this->image_path
             : asset('storage/' . $this->image_path);
+    }
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

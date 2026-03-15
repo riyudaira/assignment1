@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('build')->nullable();
             $table->string('profile_image')->nullable();
+            $table->decimal('evaluation', 3, 1)->default(0.0);
+            $table->integer('evaluation_count')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });

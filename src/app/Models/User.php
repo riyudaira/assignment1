@@ -27,6 +27,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_image',
         'email_verified_at',
         'profile_completed',
+        'evaluation',
+        'evaluation_count',
     ];
 
     protected $hidden = [
@@ -37,6 +39,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'profile_completed' => 'boolean',
+        'evaluation' => 'float',
+        'evaluation_count' => 'integer',
     ];
 
     public function items()
@@ -57,5 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
     }
 }

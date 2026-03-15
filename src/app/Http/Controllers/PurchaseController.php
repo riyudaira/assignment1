@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\DB;
 use Stripe\Checkout\Session as StripeSession;
 
 
@@ -65,20 +66,33 @@ class PurchaseController extends Controller
         ]);
         return redirect($session->url);
     }
+
     //購入成功
     public function success(Item $item)
     {
-        $paymentMethod = session('last_payment_method', 'card');
 
-        Purchase::create([
-            'user_id'      => Auth::id(),
-            'item_id'      => $item->id,
-            'payment_method' => $paymentMethod,
-            'post_code'    => Auth::user()->post_code,
-            'address'      => Auth::user()->address,
-            'build'        => Auth::user()->build,
-            'purchased_at' => now(),
+        $addressData = session('purchase_address_' . $item->id, [
+            'post_code' => Auth::user()->post_code,
+            'address'   => Auth::user()->address,
+            'build'     => Auth::user()->build,
         ]);
+
+        DB::transaction(function () use ($item, $addressData) {
+            Purchase::create([
+                'user_id'        => Auth::id(),
+                'item_id'        => $item->id,
+                'payment_method' => session('last_payment_method', 'カード支払い'),
+                'post_code'      => $addressData['post_code'],
+                'address'        => $addressData['address'],
+                'build'          => $addressData['build'],
+                'purchased_at'   => now(),
+            ]);
+
+            $item->update([
+                'buyer_id' => Auth::id(),
+                'status'   => 'shipping',
+            ]);
+        });
         return redirect()->route('user.profile')->with('message', '購入が完了しました');
     }
     //購入失敗
@@ -87,14 +101,12 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.show', $item->id)
             ->with('error', '決済がキャンセルされました');
     }
-
     //送付先変更画面へ
     public function edit(Item $item)
     {
         $user = auth()->user();
         return view('items.address', compact('item', 'user'));
     }
-
     //送付先更新
     public function updateAddress(AddressRequest $request, Item $item)
     {
@@ -105,7 +117,6 @@ class PurchaseController extends Controller
                 'build'     => $request->input('build'),
             ]
         ]);
-
         return redirect()->route('purchase.show', ['item' => $item->id])
             ->with('message', '配送先を変更しました');
     }

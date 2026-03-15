@@ -17,6 +17,8 @@ class CreateItemsTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('buyer_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('status')->default('selling');
             $table->string('name');
             $table->integer('price');
             $table->string('brand')->nullable();

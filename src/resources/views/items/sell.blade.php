@@ -9,7 +9,6 @@
         <h1 class="sell-title">商品の出品</h1>
         <form method="POST" action="{{ route('item.store') }}" enctype="multipart/form-data" class="sell-form">
             @csrf
-            {{-- 商品画像 --}}
             <p class="section-title">商品画像</p>
             <div class="item-image-wrapper">
                 <div class="image-select-area">
@@ -26,10 +25,7 @@
                 <div class="error-message">{{ $message }}</div>
             @enderror
             <hr class="section-line">
-
-            {{-- 商品の詳細 --}}
             <p class="section-title">商品の詳細</p>
-
             <label class="label-text">カテゴリー</label>
             <div class="category-tags">
                 @foreach ($categories as $category)
@@ -54,28 +50,22 @@
                 <div class="error-message">{{ $message }}</div>
             @enderror
             <hr class="section-line">
-
-            {{-- 商品名と説明 --}}
             <p class="section-title">商品名と説明</p>
-
             <label class="label-text">商品名</label>
             <input type="text" name="name" value="{{ old('name') }}" class="sell-form-input">
             @error('name')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-
             <label class="label-text">ブランド名</label>
             <input type="text" name="brand" value="{{ old('brand') }}" class="sell-form-input">
             @error('brand')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-
             <label class="label-text">商品の説明</label>
             <textarea name="description" class="textarea-input">{{ old('description') }}</textarea>
             @error('description')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-
             <label class="label-text">販売価格</label>
             <div class="price-input-wrapper">
                 <input type="number" name="price" value="{{ old('price') }}" class="price-input">

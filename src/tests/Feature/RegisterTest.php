@@ -3,17 +3,14 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
+    /** 名前が未入力の場合はエラー */
     public function test_name_is_required()
     {
         $response = $this->post('/register', [
@@ -21,10 +18,10 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         $response->assertSessionHasErrors(['name']);
     }
 
+    /** メールアドレスが未入力の場合はエラー */
     public function test_email_is_required()
     {
         $response = $this->post('/register', [
@@ -32,19 +29,20 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         $response->assertSessionHasErrors(['email']);
     }
+
+    /** パスワードが未入力の場合はエラー */
     public function test_password_is_required()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
         ]);
-
         $response->assertSessionHasErrors(['password']);
     }
 
+    /** パスワードが8文字未満の場合はエラー */
     public function test_password_must_be_at_least_8_characters()
     {
         $response = $this->post('/register', [
@@ -53,10 +51,10 @@ class RegisterTest extends TestCase
             'password' => 'short',
             'password_confirmation' => 'short',
         ]);
-
         $response->assertSessionHasErrors(['password']);
     }
 
+    /** 確認用パスワードが一致しない場合はエラー */
     public function test_password_confirmation_must_match()
     {
         $response = $this->post('/register', [
@@ -65,11 +63,11 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'different123',
         ]);
-
         $response->assertSessionHasErrors(['password']);
     }
 
-    public function test_successful_registration_redirects_to_profile()
+    /** 正しい情報で登録に成功し、メール認証画面へリダイレクトされる */
+    public function test_successful_registration_redirects_to_verify_notice()
     {
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
@@ -77,8 +75,10 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
         $response->assertRedirect('/email/verify');
-        $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
+        $this->assertDatabaseHas('users', [
+            'email' => 'test@example.com',
+            'name' => 'テストユーザー',
+        ]);
     }
 }

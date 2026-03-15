@@ -30,6 +30,10 @@ class CommentFactory extends Factory
             '説明通りの状態で届きました。',
             'コスパが良くておすすめです。',
         ];
+        $item = Item::inRandomOrder()->first();
+        $commenter = User::where('id', '!=', $item->user_id)
+            ->inRandomOrder()
+            ->first() ?? User::factory();
 
         return [
             'user_id' => User::inRandomOrder()->first()->id,

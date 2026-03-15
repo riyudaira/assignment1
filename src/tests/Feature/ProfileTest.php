@@ -3,78 +3,69 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
-use Database\Seeders\UsersTableSeeder;
-use Database\Seeders\CategoriesTableSeeder;
-use Database\Seeders\ItemsTableSeeder;
+use App\Models\Purchase;
 
 class ProfileTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
+    /** 出品した商品一覧が表示される */
     public function test_profile_page_shows_listed_items()
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(CategoriesTableSeeder::class);
-        $this->seed(ItemsTableSeeder::class);
-
-        $item = Item::where('name', '腕時計')->first();
-        $user = $item->user;
-
+        /** @var User $user */
+        $user = User::factory()->create(['name' => 'テストユーザー']);
         $this->actingAs($user);
-
+        Item::factory()->create([
+            'user_id' => $user->id,
+            'name' => '自作の腕時計'
+        ]);
         $response = $this->get('/mypage?tab=listed');
-
-        $response->assertSee($user->name);
-        $response->assertSee('腕時計');
+        $response->assertStatus(200);
+        $response->assertSee('テストユーザー');
+        $response->assertSee('自作の腕時計');
     }
 
+    /** 購入した商品一覧が表示される */
     public function test_profile_page_shows_purchased_items()
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(CategoriesTableSeeder::class);
-        $this->seed(ItemsTableSeeder::class);
-
-        $user = User::first();
+        /** @var User $user */
+        $user = User::factory()->create();
         $this->actingAs($user);
-
-        $item = Item::where('name', 'HDD')->first();
-
-        $user->purchases()->create([
+        $item = Item::factory()->create(['name' => '購入したHDD']);
+        Purchase::factory()->create([
+            'user_id' => $user->id,
             'item_id' => $item->id,
-            'payment_method' => 'カード支払い',
-            'post_code' => '123-4567',
-            'address' => '東京都葛飾区テスト町',
-            'build' => 'テストビル101',
-            'purchased_at' => now(),
         ]);
-
         $response = $this->get('/mypage?tab=purchased');
-        $response->assertSee('HDD');
+        $response->assertStatus(200);
+        $response->assertSee('購入したHDD');
     }
+
+    /** プロフィール編集画面に既存のユーザー情報が表示されている */
     public function test_profile_edit_page_shows_existing_user_information()
     {
-        $user = User::factory()->count(1)->create()->first();
+        /** @var User $user */
+        $user = User::factory()->create([
+            'name' => '編集前名前',
+            'post_code' => '111-2222',
+            'address' => '東京都渋谷区',
+            'build' => 'テックビル',
+        ]);
         $this->actingAs($user);
-
         $response = $this->get(route('user.profile.edit'));
-
+        $response->assertStatus(200);
         $content = $response->getContent();
-        $this->assertStringContainsString('value="' . $user->name . '"', $content);
+        $this->assertStringContainsString('value="編集前名前"', $content);
+        $this->assertStringContainsString('value="111-2222"', $content);
+        $this->assertStringContainsString('value="東京都渋谷区"', $content);
+        $this->assertStringContainsString('value="テックビル"', $content);
         if ($user->profile_image) {
             $this->assertStringContainsString($user->profile_image, $content);
         } else {
-            $this->assertStringContainsString('noImage.svg', $content);
+            $this->assertStringContainsString('images/img/logo/noImage.svg', $content);
         }
-        $this->assertStringContainsString('value="' . $user->post_code . '"', $content);
-        $this->assertStringContainsString('value="' . $user->address . '"', $content);
-        $this->assertStringContainsString('value="' . $user->build . '"', $content);
     }
 }
