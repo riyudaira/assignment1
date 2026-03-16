@@ -35,6 +35,7 @@ class PurchaseController extends Controller
             return back()->withErrors(['error' => '自分の商品は購入できません']);
         }
         Stripe::setApiKey(config('services.stripe.secret'));
+        \Stripe\Stripe::setCABundlePath('/etc/ssl/certs/ca-certificates.crt');
         $method = match ($paymentMethod) {
             'カード払い' => 'card',
             'コンビニ払い' => 'konbini',
